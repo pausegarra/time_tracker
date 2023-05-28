@@ -1,7 +1,9 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 import { UserEntity } from 'src/user/domain/user.entity';
 
-@Table
+@Table({
+  tableName: 'Users',
+})
 export class UserModel extends Model implements UserEntity {
   @Column
   name: string;
