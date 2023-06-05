@@ -1,4 +1,10 @@
-import { Body, Controller, HttpException, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from 'src/auth/application/auth.service';
 import { RegisterDto } from '../dtos/register.dto';
 import { UserService } from 'src/user/application/user.service';
@@ -18,7 +24,7 @@ export class RegisterController {
       return this.authService.register(body);
     } catch (err) {
       if (err instanceof EmailAlreadyExistsError)
-        throw new HttpException(err.message, err.code);
+        throw new HttpException('email_exists', HttpStatus.BAD_REQUEST);
     }
   }
 }
