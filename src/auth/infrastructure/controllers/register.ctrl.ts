@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { RegisterDto } from '../dtos/register.dto';
 import { UserService } from 'src/user/application/user.service';
-import { EmailAlreadyExistsError } from 'src/user/application/exceptions/emailExists.error';
+import { EmailAlreadyExistsError } from 'src/user/application/exceptions/email-exists.error';
 import { TokenService } from 'src/token/application/token.service';
 import { RegisterService } from 'src/auth/application/register.service';
 import { UserDTO } from 'src/user/infrastructure/dtos/user.dto';
@@ -25,6 +25,7 @@ export class RegisterController {
     try {
       await this.userService.ensureUserEmailNotexists(body.email);
       const user = await this.registerService.register(body);
+
       const payload = { id: user.id };
       const token = this.tokenService.generateToken(payload);
       await this.tokenService.saveUserSessionToken(token, user.id);

@@ -22,13 +22,4 @@ export class MysqlRepository implements UserRepository {
     const user = this.model.create({ ...data });
     return user;
   }
-
-  async countByEmail(email: string) {
-    const total = await this.model.count({
-      where: {
-        email,
-      },
-    });
-    return total;
-  }
 }

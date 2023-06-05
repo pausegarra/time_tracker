@@ -3,10 +3,10 @@ import { LoginController } from './infrastructure/controllers/login.ctrl';
 import { UserModule } from 'src/user/user.module';
 import { RegisterController } from './infrastructure/controllers/register.ctrl';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { TokenModule } from 'src/token/token.module';
 import { LoginService } from './application/login.service';
 import { RegisterService } from './application/register.service';
+import { AuthenticatedStrategy } from './infrastructure/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -18,6 +18,6 @@ import { RegisterService } from './application/register.service';
     }),
   ],
   controllers: [LoginController, RegisterController],
-  providers: [LoginService, RegisterService, JwtStrategy],
+  providers: [LoginService, RegisterService, AuthenticatedStrategy],
 })
 export class AuthModule {}

@@ -1,14 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { UserRepository } from 'src/user/domain/user.repository';
+import { Injectable } from '@nestjs/common';
+import { compare } from 'bcrypt';
+import { PasswordsNotMatchException } from './exceptions/passwords-not-match.error';
 
 @Injectable()
 export class LoginService {
-  constructor(
-    @Inject('UserRepository') private readonly userRepository: UserRepository,
-  ) {}
-
-  async login(email: string, password: string) {
-    const user = await this.userRepository.findByEmail(email);
-    return user;
+  async comparePasswords(password, hash) {
+    const isMatched = await compare(password, hash);
+    if (isMatched === false) {
+      throw new PasswordsNotMatchException();
+    }
   }
 }

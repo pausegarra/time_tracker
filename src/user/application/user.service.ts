@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../domain/user.repository';
-import { EmailAlreadyExistsError } from './exceptions/emailExists.error';
+import { EmailAlreadyExistsError } from './exceptions/email-exists.error';
+import { UserNotFoundException } from './exceptions/user-not-found.error';
 
 @Injectable()
 export class UserService {
@@ -9,9 +10,18 @@ export class UserService {
   ) {}
 
   async ensureUserEmailNotexists(email: string) {
-    const totalUsers = await this.userRepository.countByEmail(email);
-    if (totalUsers > 0) {
+    const totalUsers = await this.userRepository.findByEmail(email);
+    if (totalUsers !== null) {
       throw new EmailAlreadyExistsError();
     }
+  }
+
+  async getUserByEmail(email: string) {
+    const user = await this.userRepository.findByEmail(email);
+    if (user === null) {
+      throw new UserNotFoundException();
+    }
+
+    return user;
   }
 }
