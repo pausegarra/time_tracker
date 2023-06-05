@@ -10,6 +10,7 @@ import { UserService } from 'src/user/application/user.service';
 import { EmailAlreadyExistsError } from 'src/user/application/exceptions/emailExists.error';
 import { TokenService } from 'src/token/application/token.service';
 import { RegisterService } from 'src/auth/application/register.service';
+import { UserDTO } from 'src/user/infrastructure/dtos/user.dto';
 
 @Controller('/api/auth/register')
 export class RegisterController {
@@ -29,7 +30,7 @@ export class RegisterController {
       await this.tokenService.saveUserSessionToken(token, user.id);
 
       return {
-        user,
+        user: UserDTO.toResponse(user),
         token,
       };
     } catch (err) {

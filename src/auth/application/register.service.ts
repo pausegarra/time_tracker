@@ -15,9 +15,7 @@ export class RegisterService {
       password: await this.hashPassword(data.password),
     };
     const createdUser = await this.userRepository.create(userData);
-
-    const { password, ...restOfUser } = JSON.parse(JSON.stringify(createdUser));
-    return restOfUser;
+    return createdUser;
   }
 
   private async hashPassword(string) {
