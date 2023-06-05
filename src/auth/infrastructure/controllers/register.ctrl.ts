@@ -5,16 +5,16 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/application/auth.service';
 import { RegisterDto } from '../dtos/register.dto';
 import { UserService } from 'src/user/application/user.service';
 import { EmailAlreadyExistsError } from 'src/user/application/exceptions/emailExists.error';
 import { TokenService } from 'src/token/application/token.service';
+import { RegisterService } from 'src/auth/application/register.service';
 
 @Controller('/api/auth/register')
 export class RegisterController {
   constructor(
-    private readonly authService: AuthService,
+    private readonly registerService: RegisterService,
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
   ) {}
@@ -23,7 +23,7 @@ export class RegisterController {
   async register(@Body() body: RegisterDto) {
     try {
       await this.userService.ensureUserEmailNotexists(body.email);
-      const user = await this.authService.register(body);
+      const user = await this.registerService.register(body);
       const payload = { id: user.id };
       const token = this.tokenService.generateToken(payload);
       await this.tokenService.saveUserSessionToken(token, user.id);
