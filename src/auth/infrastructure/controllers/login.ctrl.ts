@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  Res,
 } from '@nestjs/common';
 import { LoginDto } from '../dtos/login.dto';
 import { LoginService } from 'src/auth/application/login.service';
@@ -13,6 +14,7 @@ import { UserNotFoundException } from 'src/user/application/exceptions/user-not-
 import { PasswordsNotMatchException } from 'src/auth/application/exceptions/passwords-not-match.error';
 import { TokenService } from 'src/token/application/token.service';
 import { UserDTO } from 'src/user/infrastructure/dtos/user.dto';
+import { Response } from 'express';
 
 @Controller('/api/auth/login')
 export class LoginController {
@@ -24,7 +26,7 @@ export class LoginController {
 
   @Post()
   @HttpCode(200)
-  async login(@Body() body: LoginDto) {
+  async login(@Body() body: LoginDto, @Res() res: Response) {
     try {
       const { email, password } = body;
       const user = await this.userService.getUserByEmail(email);
@@ -34,10 +36,11 @@ export class LoginController {
       const token = this.tokenService.generateToken(payload);
       await this.tokenService.saveUserSessionToken(token, user.id);
 
-      return {
+      res.cookie('token', token, this.tokenService.getCookieOptions());
+      res.json({
         user: UserDTO.toResponse(user),
         token,
-      };
+      });
     } catch (err) {
       if (
         err instanceof UserNotFoundException ||
