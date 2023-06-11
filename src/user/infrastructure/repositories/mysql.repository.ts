@@ -22,4 +22,13 @@ export class MysqlRepository implements UserRepository {
     const user = this.model.create({ ...data });
     return user;
   }
+
+  findById(id: number): Promise<UserEntity> {
+    const user = this.model.findOne({
+      where: {
+        id,
+      },
+    });
+    return user;
+  }
 }
