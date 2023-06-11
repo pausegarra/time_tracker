@@ -36,7 +36,11 @@ export class LoginController {
       const token = this.tokenService.generateToken(payload);
       await this.tokenService.saveUserSessionToken(token, user.id);
 
-      res.cookie('token', token, this.tokenService.getCookieOptions());
+      res.cookie(
+        this.tokenService.getCookieName(),
+        token,
+        this.tokenService.getCookieOptions(),
+      );
       res.json({
         user: UserDTO.toResponse(user),
         token,

@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  Res,
 } from '@nestjs/common';
 import { RegisterDto } from '../dtos/register.dto';
 import { UserService } from 'src/user/application/user.service';
@@ -11,6 +12,7 @@ import { EmailAlreadyExistsError } from 'src/user/application/exceptions/email-e
 import { TokenService } from 'src/token/application/token.service';
 import { RegisterService } from 'src/auth/application/register.service';
 import { UserDTO } from 'src/user/infrastructure/dtos/user.dto';
+import { Response } from 'express';
 
 @Controller('/api/auth/register')
 export class RegisterController {
@@ -21,7 +23,7 @@ export class RegisterController {
   ) {}
 
   @Post()
-  async register(@Body() body: RegisterDto) {
+  async register(@Body() body: RegisterDto, @Res() res: Response) {
     try {
       await this.userService.ensureUserEmailNotexists(body.email);
       const user = await this.registerService.register(body);
@@ -30,10 +32,15 @@ export class RegisterController {
       const token = this.tokenService.generateToken(payload);
       await this.tokenService.saveUserSessionToken(token, user.id);
 
-      return {
+      res.cookie(
+        this.tokenService.getCookieName(),
+        token,
+        this.tokenService.getCookieOptions(),
+      );
+      res.json({
         user: UserDTO.toResponse(user),
         token,
-      };
+      });
     } catch (err) {
       if (err instanceof EmailAlreadyExistsError)
         throw new HttpException('email_exists', HttpStatus.BAD_REQUEST);

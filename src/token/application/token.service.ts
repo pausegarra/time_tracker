@@ -38,4 +38,8 @@ export class TokenService {
       maxAge: 604800000,
     };
   }
+
+  getCookieName(): string {
+    return 'token';
+  }
 }
