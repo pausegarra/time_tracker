@@ -7,6 +7,7 @@ import { TokenModule } from 'src/token/token.module';
 import { LoginService } from './application/login.service';
 import { RegisterService } from './application/register.service';
 import { AuthenticatedStrategy } from './infrastructure/strategies/jwt.strategy';
+import { WhoAmIController } from './infrastructure/controllers/whoami.ctrl';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { AuthenticatedStrategy } from './infrastructure/strategies/jwt.strategy'
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  controllers: [LoginController, RegisterController],
+  controllers: [LoginController, RegisterController, WhoAmIController],
   providers: [LoginService, RegisterService, AuthenticatedStrategy],
 })
 export class AuthModule {}
