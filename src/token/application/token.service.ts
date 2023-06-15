@@ -40,6 +40,6 @@ export class TokenService {
   }
 
   getCookieName(): string {
-    return 'token';
+    return 'timetracker_token';
   }
 }
