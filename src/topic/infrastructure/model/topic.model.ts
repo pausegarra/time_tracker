@@ -13,4 +13,7 @@ export class TopicModel extends Model implements TopicEntity {
 
   @Column
   icon: string;
+
+  @Column
+  userId: number;
 }

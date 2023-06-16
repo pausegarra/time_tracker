@@ -4,6 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 import { TokenService } from 'src/token/application/token.service';
 import { UserService } from 'src/user/application/user.service';
+import { UserDTO } from 'src/user/infrastructure/dtos/user.dto';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -28,6 +29,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
 
-    return user;
+    return UserDTO.toResponse(user);
   }
 }
