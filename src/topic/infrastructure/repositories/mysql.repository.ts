@@ -19,12 +19,16 @@ export class MysqlRepository implements TopicRepository {
   }
 
   createTopicForUser(
-    topicData: Omit<TopicEntity, 'userId'>,
+    name: string,
     userId: number,
+    color: string,
+    icon: string,
   ): Promise<TopicEntity> {
     return this.topicModel.create({
-      ...topicData,
-      userId: userId,
+      name,
+      userId,
+      color,
+      icon,
     });
   }
 }

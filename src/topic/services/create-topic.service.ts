@@ -11,6 +11,7 @@ export class CreateTopicService {
   ) {}
 
   create(values: TopicEntity, user: UserEntity) {
-    return this.topicRepository.createTopicForUser(values, user.id);
+    const { name, icon, color } = values;
+    return this.topicRepository.createTopicForUser(name, user.id, color, icon);
   }
 }
