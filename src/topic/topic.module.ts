@@ -4,6 +4,8 @@ import { MysqlRepository } from './infrastructure/repositories/mysql.repository'
 import { TopicModel } from './infrastructure/model/topic.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { CreateTopicService } from './services/create-topic.service';
+import { GetTopicsController } from './infrastructure/controllers/get-topics.ctrl';
+import { GetTopicService } from './services/get-topics.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([TopicModel])],
@@ -13,7 +15,8 @@ import { CreateTopicService } from './services/create-topic.service';
       useClass: MysqlRepository,
     },
     CreateTopicService,
+    GetTopicService,
   ],
-  controllers: [CreateTopicController],
+  controllers: [CreateTopicController, GetTopicsController],
 })
 export class TopicModule {}
