@@ -9,6 +9,6 @@ export class GetTopicService {
   ) {}
 
   getMyTopics(userId: number) {
-    return this.topicRepository.findByUser(userId);
+    return this.topicRepository.findAllOfUser(userId);
   }
 }
