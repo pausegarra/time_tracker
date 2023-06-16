@@ -2,7 +2,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { TokenRepository } from 'src/token/domain/token.repository';
 import { TokenModel } from '../models/token.model';
 import { Injectable } from '@nestjs/common';
-import { TokenEntity } from 'src/token/domain/token.entity';
+import { TokenTypes } from 'src/token/domain/token.entity';
 
 @Injectable()
 export class MysqlRepository implements TokenRepository {
@@ -10,8 +10,12 @@ export class MysqlRepository implements TokenRepository {
     @InjectModel(TokenModel) private readonly model: typeof TokenModel,
   ) {}
 
-  async create(data: TokenEntity) {
-    const token = await this.model.create({ ...data });
-    return token;
+  async create(token: string, userId: number, type: TokenTypes) {
+    const createdToken = await this.model.create({
+      token,
+      userId,
+      type,
+    });
+    return createdToken;
   }
 }

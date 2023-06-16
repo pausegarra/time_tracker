@@ -20,12 +20,11 @@ export class TokenService {
   }
 
   async saveUserSessionToken(token: string, userId: number) {
-    const data = {
+    const saved = await this.tokenRepository.create(
       token,
       userId,
-      type: TokenTypes.Session,
-    };
-    const saved = await this.tokenRepository.create(data);
+      TokenTypes.Session,
+    );
     return saved;
   }
 

@@ -1,5 +1,5 @@
-import { TokenEntity } from './token.entity';
+import { TokenEntity, TokenTypes } from './token.entity';
 
 export interface TokenRepository {
-  create(data: TokenEntity): Promise<TokenEntity>;
+  create(token: string, userId: number, type: TokenTypes): Promise<TokenEntity>;
 }
