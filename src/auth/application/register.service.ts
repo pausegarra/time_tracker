@@ -10,11 +10,11 @@ export class RegisterService {
   ) {}
 
   async register(data: UserEntity) {
-    const userData = {
-      ...data,
-      password: await this.hashPassword(data.password),
-    };
-    const createdUser = await this.userRepository.create(userData);
+    const createdUser = await this.userRepository.create(
+      data.name,
+      data.email,
+      await this.hashPassword(data.password),
+    );
     return createdUser;
   }
 
