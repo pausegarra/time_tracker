@@ -31,4 +31,21 @@ export class MysqlRepository implements TopicRepository {
       icon,
     });
   }
+
+  async deleteTopic(topicId: number): Promise<void> {
+    await this.topicModel.destroy({
+      where: {
+        id: topicId,
+      },
+    });
+  }
+
+  findOneOfUser(topicId: number, userId: number): Promise<TopicEntity> {
+    return this.topicModel.findOne({
+      where: {
+        id: topicId,
+        userId,
+      },
+    });
+  }
 }

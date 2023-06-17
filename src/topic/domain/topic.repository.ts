@@ -8,4 +8,6 @@ export interface TopicRepository {
     color: string,
     icon: string,
   ): Promise<TopicEntity>;
+  deleteTopic(topicId: number): Promise<void>;
+  findOneOfUser(topicId: number, userId: number): Promise<TopicEntity>;
 }
