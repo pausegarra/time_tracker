@@ -10,7 +10,7 @@ export class MysqlRepository implements TopicRepository {
     @InjectModel(TopicModel) private readonly topicModel: typeof TopicModel,
   ) {}
 
-  findByUser(userId: number) {
+  findAllOfUser(userId: number) {
     return this.topicModel.findAll({
       where: {
         userId,
