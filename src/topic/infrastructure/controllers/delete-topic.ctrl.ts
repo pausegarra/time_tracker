@@ -9,21 +9,21 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/infrastructure/guards/jwt-auth.guard';
-import { DeleteTopicService } from 'src/topic/services/delete-topic.service';
 import { TopicNotFoundException } from 'src/topic/services/exceptions/not-found.exception';
+import { TopicService } from 'src/topic/services/topic.service';
 import { UserEntity } from 'src/user/domain/user.entity';
 
 @Controller('/api/topics/:id')
 export class DeleteTopicController {
-  constructor(private readonly deleteTopicService: DeleteTopicService) {}
+  constructor(private readonly topicService: TopicService) {}
 
   @Delete()
   @UseGuards(JwtAuthGuard)
   async deleteTopic(@Param('id') id: number, @Req() req: Request) {
     try {
       const { id: userId } = req.user as UserEntity;
-      await this.deleteTopicService.ensureTopicOfUserExists(id, userId);
-      await this.deleteTopicService.deleteTopic(id);
+      await this.topicService.ensureTopicOfUserExists(id, userId);
+      await this.topicService.deleteTopic(id);
 
       return {
         message: 'topic_deleted',

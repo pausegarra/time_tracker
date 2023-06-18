@@ -8,6 +8,7 @@ import { GetTopicsController } from './infrastructure/controllers/get-topics.ctr
 import { GetTopicService } from './services/get-topics.service';
 import { DeleteTopicController } from './infrastructure/controllers/delete-topic.ctrl';
 import { DeleteTopicService } from './services/delete-topic.service';
+import { TopicService } from './services/topic.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([TopicModel])],
@@ -19,6 +20,7 @@ import { DeleteTopicService } from './services/delete-topic.service';
     CreateTopicService,
     GetTopicService,
     DeleteTopicService,
+    TopicService,
   ],
   controllers: [
     CreateTopicController,
