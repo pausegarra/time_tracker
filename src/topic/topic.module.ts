@@ -6,6 +6,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { GetTopicsController } from './infrastructure/controllers/get-topics.ctrl';
 import { DeleteTopicController } from './infrastructure/controllers/delete-topic.ctrl';
 import { TopicService } from './services/topic.service';
+import { UpdateTopicController } from './infrastructure/controllers/update-topic.ctrl';
 
 @Module({
   imports: [SequelizeModule.forFeature([TopicModel])],
@@ -20,6 +21,7 @@ import { TopicService } from './services/topic.service';
     CreateTopicController,
     GetTopicsController,
     DeleteTopicController,
+    UpdateTopicController,
   ],
 })
 export class TopicModule {}

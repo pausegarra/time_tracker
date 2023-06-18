@@ -48,4 +48,24 @@ export class MysqlRepository implements TopicRepository {
       },
     });
   }
+
+  async updateTopic(
+    topicId: number,
+    name: string,
+    color: string,
+    icon: string,
+  ): Promise<void> {
+    await this.topicModel.update(
+      {
+        name,
+        color,
+        icon,
+      },
+      {
+        where: {
+          id: topicId,
+        },
+      },
+    );
+  }
 }

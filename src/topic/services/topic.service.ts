@@ -30,4 +30,9 @@ export class TopicService {
   getMyTopics(userId: number) {
     return this.topicRepository.findAllOfUser(userId);
   }
+
+  updateTopic(topicId: number, topicValues: TopicEntity) {
+    const { name, icon, color } = topicValues;
+    return this.topicRepository.updateTopic(topicId, name, color, icon);
+  }
 }

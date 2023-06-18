@@ -10,4 +10,5 @@ export interface TopicRepository {
   ): Promise<TopicEntity>;
   deleteTopic(topicId: number): Promise<void>;
   findOneOfUser(topicId: number, userId: number): Promise<TopicEntity>;
+  updateTopic(topicId: number, name: string, color: string, icon: string): Promise<void>;
 }
