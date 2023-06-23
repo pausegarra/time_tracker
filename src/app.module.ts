@@ -7,6 +7,7 @@ import { TestController } from './test.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TopicModel } from './topic/infrastructure/model/topic.model';
 import { TopicModule } from './topic/topic.module';
+import { Sequelize } from 'sequelize-typescript';
 
 @Module({
   imports: [
@@ -19,8 +20,9 @@ import { TopicModule } from './topic/topic.module';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'time_tracker',
+      database: 'time_tracker_2',
       models: [UserModel, TokenModel, TopicModel],
+      synchronize: true,
     }),
     AuthModule,
     TopicModule,
@@ -28,4 +30,8 @@ import { TopicModule } from './topic/topic.module';
   controllers: [TestController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private sequelize: Sequelize) {
+    this.sequelize.sync(); // Sincronizar los modelos
+  }
+}

@@ -1,19 +1,38 @@
-import { Column, Table, Model } from 'sequelize-typescript';
+import {
+  Column,
+  Table,
+  Model,
+  DataType,
+  ForeignKey,
+  PrimaryKey,
+  AutoIncrement,
+  BelongsTo,
+} from 'sequelize-typescript';
 import { TokenEntity, TokenTypes } from 'src/token/domain/token.entity';
+import { UserModel } from 'src/user/infrastructure/models/user.model';
 
 @Table({
   tableName: 'Tokens',
 })
 export class TokenModel extends Model implements TokenEntity {
+  @PrimaryKey
+  @AutoIncrement
   @Column
+  id: number;
+
+  @Column(DataType.STRING)
   token: string;
 
-  @Column
+  @Column(DataType.STRING)
   type: TokenTypes;
 
-  @Column
+  @ForeignKey(() => UserModel)
+  @Column(DataType.INTEGER)
   userId: number;
 
-  @Column
+  @Column(DataType.DATE)
   expiresAt: string;
+
+  @BelongsTo(() => UserModel)
+  user: UserModel;
 }
