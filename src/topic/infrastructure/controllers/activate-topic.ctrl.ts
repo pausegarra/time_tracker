@@ -27,6 +27,7 @@ export class ActivateTopicController {
     try {
       const { id } = req.user as UserEntity;
       await this.topicService.ensureTopicOfUserExists(topicId, id);
+      await this.topicHistoryService.closeIfAlreadyOneActive(id);
       await this.topicHistoryService.activate(id, topicId);
     } catch (err) {
       if (err instanceof TopicNotFoundException)
