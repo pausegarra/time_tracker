@@ -20,7 +20,7 @@ import { Sequelize } from 'sequelize-typescript';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'time_tracker_2',
+      database: 'time_tracker',
       models: [UserModel, TokenModel, TopicModel],
     }),
     AuthModule,
