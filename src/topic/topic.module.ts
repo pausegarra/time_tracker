@@ -11,6 +11,7 @@ import { ActivateTopicController } from './infrastructure/controllers/activate-t
 import { MysqlTopicHistoryRepository } from './infrastructure/repositories/mysql-topichistory.repository';
 import { TopicHistorySerivce } from './services/topic-history.service';
 import { TopicHistoryModel } from './infrastructure/model/topic-history.model';
+import { GetCurrentTopicController } from './infrastructure/controllers/get-current.ctrl';
 
 @Module({
   imports: [SequelizeModule.forFeature([TopicModel, TopicHistoryModel])],
@@ -32,6 +33,7 @@ import { TopicHistoryModel } from './infrastructure/model/topic-history.model';
     DeleteTopicController,
     UpdateTopicController,
     ActivateTopicController,
+    GetCurrentTopicController,
   ],
 })
 export class TopicModule {}

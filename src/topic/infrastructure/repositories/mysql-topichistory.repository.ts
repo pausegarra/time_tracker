@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { TopicHistoryRepository } from 'src/topic/domain/topic-history.repository';
 import { TopicHistoryModel } from '../model/topic-history.model';
 import { TopicHistoryEntity } from 'src/topic/domain/topic-hisotory.entity';
+import { TopicModel } from '../model/topic.model';
+import { TopicHistoryWithTopic } from 'src/topic/domain/topic-history-with-topic.entity';
 
 @Injectable()
 export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
@@ -31,6 +33,16 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
         userId,
         closedAt: null,
       },
+    });
+  }
+
+  getActiveOfUserWithTopic(userId: number): Promise<TopicHistoryWithTopic> {
+    return this.model.findOne({
+      where: {
+        userId,
+        closedAt: null,
+      },
+      include: [TopicModel],
     });
   }
 

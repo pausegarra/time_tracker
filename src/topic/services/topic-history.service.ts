@@ -20,4 +20,8 @@ export class TopicHistorySerivce {
       });
     }
   }
+
+  async getCurrent(userId: number) {
+    return this.topicHistoryRepository.getActiveOfUserWithTopic(userId);
+  }
 }

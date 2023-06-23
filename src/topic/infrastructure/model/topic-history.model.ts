@@ -1,5 +1,6 @@
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -10,6 +11,7 @@ import {
 import { TopicHistoryEntity } from 'src/topic/domain/topic-hisotory.entity';
 import { TopicModel } from './topic.model';
 import { UserModel } from 'src/user/infrastructure/models/user.model';
+import { TopicEntity } from 'src/topic/domain/topic.entity';
 
 @Table({
   tableName: 'topic_history',
@@ -33,4 +35,7 @@ export class TopicHistoryModel extends Model implements TopicHistoryEntity {
 
   @Column(DataType.DATE)
   closedAt: Date;
+
+  @BelongsTo(() => TopicModel)
+  topic: TopicEntity;
 }
