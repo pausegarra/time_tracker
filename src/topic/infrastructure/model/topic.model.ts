@@ -11,7 +11,7 @@ import { TopicEntity } from 'src/topic/domain/topic.entity';
 import { UserModel } from 'src/user/infrastructure/models/user.model';
 
 @Table({
-  tableName: 'Topics',
+  tableName: 'topics',
 })
 export class TopicModel extends Model implements TopicEntity {
   @PrimaryKey

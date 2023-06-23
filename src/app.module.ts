@@ -22,7 +22,6 @@ import { Sequelize } from 'sequelize-typescript';
       password: 'root',
       database: 'time_tracker_2',
       models: [UserModel, TokenModel, TopicModel],
-      synchronize: true,
     }),
     AuthModule,
     TopicModule,
@@ -32,6 +31,6 @@ import { Sequelize } from 'sequelize-typescript';
 })
 export class AppModule {
   constructor(private sequelize: Sequelize) {
-    this.sequelize.sync(); // Sincronizar los modelos
+    this.sequelize.sync({ alter: true }); // Sincronizar los modelos
   }
 }

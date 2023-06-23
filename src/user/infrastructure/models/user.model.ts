@@ -9,7 +9,7 @@ import {
 import { UserEntity } from 'src/user/domain/user.entity';
 
 @Table({
-  tableName: 'Users',
+  tableName: 'users',
 })
 export class UserModel extends Model implements UserEntity {
   @PrimaryKey

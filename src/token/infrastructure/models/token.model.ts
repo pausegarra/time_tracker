@@ -12,7 +12,7 @@ import { TokenEntity, TokenTypes } from 'src/token/domain/token.entity';
 import { UserModel } from 'src/user/infrastructure/models/user.model';
 
 @Table({
-  tableName: 'Tokens',
+  tableName: 'tokens',
 })
 export class TokenModel extends Model implements TokenEntity {
   @PrimaryKey
