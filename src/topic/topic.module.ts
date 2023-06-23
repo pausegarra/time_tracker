@@ -10,9 +10,10 @@ import { UpdateTopicController } from './infrastructure/controllers/update-topic
 import { ActivateTopicController } from './infrastructure/controllers/activate-topic.ctrl';
 import { MysqlTopicHistoryRepository } from './infrastructure/repositories/mysql-topichistory.repository';
 import { TopicHistorySerivce } from './services/topic-history.service';
+import { TopicHistoryModel } from './infrastructure/model/topic-history.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([TopicModel])],
+  imports: [SequelizeModule.forFeature([TopicModel, TopicHistoryModel])],
   providers: [
     {
       provide: 'TopicRepository',
