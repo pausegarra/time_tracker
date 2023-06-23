@@ -5,7 +5,7 @@ import { TopicModel } from '../model/topic.model';
 import { TopicEntity } from 'src/topic/domain/topic.entity';
 
 @Injectable()
-export class MysqlRepository implements TopicRepository {
+export class MysqlTopicRepository implements TopicRepository {
   constructor(
     @InjectModel(TopicModel) private readonly topicModel: typeof TopicModel,
   ) {}

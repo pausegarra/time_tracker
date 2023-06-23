@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TopicModel } from './topic/infrastructure/model/topic.model';
 import { TopicModule } from './topic/topic.module';
 import { Sequelize } from 'sequelize-typescript';
+import { TopicHistoryModel } from './topic/infrastructure/model/topic-history.model';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Sequelize } from 'sequelize-typescript';
       username: 'root',
       password: 'root',
       database: 'time_tracker',
-      models: [UserModel, TokenModel, TopicModel],
+      models: [UserModel, TokenModel, TopicModel, TopicHistoryModel],
     }),
     AuthModule,
     TopicModule,
