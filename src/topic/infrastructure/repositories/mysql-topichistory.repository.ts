@@ -5,6 +5,7 @@ import { TopicHistoryModel } from '../model/topic-history.model';
 import { TopicHistoryEntity } from 'src/topic/domain/topic-hisotory.entity';
 import { TopicModel } from '../model/topic.model';
 import { TopicHistoryWithTopic } from 'src/topic/domain/topic-history-with-topic.entity';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
@@ -60,5 +61,27 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
         },
       },
     );
+  }
+
+  async getReportOfUserGroupedByTopic(userId: any): Promise<any> {
+    return this.model.findAll({
+      attributes: [
+        'topicId',
+        [
+          Sequelize.fn(
+            'SUM',
+            Sequelize.literal(
+              'TIMESTAMPDIFF(SECOND, startedAt, COALESCE(closedAt, CURRENT_TIMESTAMP)) * 1000',
+            ),
+          ),
+          'total',
+        ],
+      ],
+      where: {
+        userId: userId,
+      },
+      group: ['topicId'],
+      include: [TopicModel],
+    });
   }
 }

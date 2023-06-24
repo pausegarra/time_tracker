@@ -9,6 +9,7 @@ import { TopicModel } from './topic/infrastructure/model/topic.model';
 import { TopicModule } from './topic/topic.module';
 import { Sequelize } from 'sequelize-typescript';
 import { TopicHistoryModel } from './topic/infrastructure/model/topic-history.model';
+import { ReportingModule } from './reporting/reporting.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { TopicHistoryModel } from './topic/infrastructure/model/topic-history.mo
     }),
     AuthModule,
     TopicModule,
+    ReportingModule,
   ],
   controllers: [TestController],
   providers: [],

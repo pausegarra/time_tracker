@@ -27,6 +27,7 @@ import { GetCurrentTopicController } from './infrastructure/controllers/get-curr
     TopicService,
     TopicHistorySerivce,
   ],
+  exports: ['TopicHistoryRepository'],
   controllers: [
     CreateTopicController,
     GetTopicsController,

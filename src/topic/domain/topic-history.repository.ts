@@ -19,4 +19,6 @@ export interface TopicHistoryRepository {
     topicHistoryId: number,
     data: Record<string, string | number | Date>,
   ): Promise<void>;
+
+  getReportOfUserGroupedByTopic(userId): Promise<any>;
 }
