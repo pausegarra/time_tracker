@@ -9,7 +9,7 @@ import { UserEntity } from 'src/user/domain/user.entity';
 export class ReportingController {
   constructor(private readonly reportingService: ReportingService) {}
 
-  @Get('/total')
+  @Get('/totals-of-all-time')
   totals(@Req() req: Request) {
     const { id } = req.user as UserEntity;
     return this.reportingService.getTotalsOfUser(id);
