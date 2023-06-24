@@ -24,4 +24,13 @@ export class TopicHistorySerivce {
   async getCurrent(userId: number) {
     return this.topicHistoryRepository.getActiveOfUserWithTopic(userId);
   }
+
+  async closeAllActiveTopics() {
+    const allOpenTopics =
+      await this.topicHistoryRepository.getAllActiveTopics();
+    const ids = allOpenTopics.map((topic) => topic.id);
+    await this.topicHistoryRepository.updateWhereIn(ids, {
+      closedAt: new Date(),
+    });
+  }
 }

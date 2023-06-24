@@ -20,5 +20,12 @@ export interface TopicHistoryRepository {
     data: Record<string, string | number | Date>,
   ): Promise<void>;
 
+  updateWhereIn(
+    topicHistoryIds: number[],
+    data: Record<string, string | number | Date>,
+  ): Promise<void>;
+
   getReportOfUserGroupedByTopic(userId): Promise<any>;
+
+  getAllActiveTopics(): Promise<TopicHistoryEntity[]>;
 }

@@ -6,6 +6,7 @@ import { TopicHistoryEntity } from 'src/topic/domain/topic-hisotory.entity';
 import { TopicModel } from '../model/topic.model';
 import { TopicHistoryWithTopic } from 'src/topic/domain/topic-history-with-topic.entity';
 import { Sequelize } from 'sequelize-typescript';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
@@ -63,6 +64,24 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
     );
   }
 
+  async updateWhereIn(
+    topicHistoryIds: number[],
+    data: Record<string, string | number | Date>,
+  ): Promise<void> {
+    this.model.update(
+      {
+        ...data,
+      },
+      {
+        where: {
+          id: {
+            [Op.in]: topicHistoryIds,
+          },
+        },
+      },
+    );
+  }
+
   async getReportOfUserGroupedByTopic(userId: any): Promise<any> {
     return this.model.findAll({
       attributes: [
@@ -82,6 +101,14 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
       },
       group: ['topicId'],
       include: [TopicModel],
+    });
+  }
+
+  getAllActiveTopics(): Promise<TopicHistoryEntity[]> {
+    return this.model.findAll({
+      where: {
+        closedAt: null,
+      },
     });
   }
 }
