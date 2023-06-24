@@ -1,7 +1,7 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/infrastructure/guards/jwt-auth.guard';
 import { TopicDTO } from '../dtos/topic.dto';
-import { TopicService } from 'src/topic/services/topic.service';
+import { TopicService } from 'src/topic/application/topic.service';
 
 @Controller('/api/topics')
 export class GetTopicsController {

@@ -3,7 +3,7 @@ import { CreateTopicDTO } from '../dtos/create-topic.dto';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/infrastructure/guards/jwt-auth.guard';
 import { UserEntity } from 'src/user/domain/user.entity';
-import { TopicService } from 'src/topic/services/topic.service';
+import { TopicService } from 'src/topic/application/topic.service';
 
 @Controller('/api/topics')
 export class CreateTopicController {

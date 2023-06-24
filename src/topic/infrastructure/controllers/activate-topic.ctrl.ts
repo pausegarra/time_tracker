@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/infrastructure/guards/jwt-auth.guard';
-import { TopicNotFoundException } from 'src/topic/services/exceptions/not-found.exception';
-import { TopicHistorySerivce } from 'src/topic/services/topic-history.service';
-import { TopicService } from 'src/topic/services/topic.service';
+import { TopicNotFoundException } from 'src/topic/application/exceptions/not-found.exception';
+import { TopicHistorySerivce } from 'src/topic/application/topic-history.service';
+import { TopicService } from 'src/topic/application/topic.service';
 import { UserEntity } from 'src/user/domain/user.entity';
 
 @Controller('/api/topics/:topicId/activate')

@@ -36,6 +36,8 @@ export class TopicHistoryModel extends Model implements TopicHistoryEntity {
   @Column(DataType.DATE)
   closedAt: Date;
 
-  @BelongsTo(() => TopicModel)
+  @BelongsTo(() => TopicModel, {
+    onDelete: 'CASCADE',
+  })
   topic: TopicEntity;
 }
