@@ -10,8 +10,11 @@ export class GetCurrentTopicController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  getCurrent(@Req() req: Request) {
+  async getCurrent(@Req() req: Request) {
     const { id } = req.user as UserEntity;
-    return this.topicHistoryService.getCurrent(id);
+    const current = await this.topicHistoryService.getCurrent(id);
+    return {
+      current,
+    };
   }
 }
