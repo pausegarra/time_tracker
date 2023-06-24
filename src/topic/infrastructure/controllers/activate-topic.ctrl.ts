@@ -29,6 +29,9 @@ export class ActivateTopicController {
       await this.topicService.ensureTopicOfUserExists(topicId, id);
       await this.topicHistoryService.closeIfAlreadyOneActive(id);
       await this.topicHistoryService.activate(id, topicId);
+      return {
+        message: 'topic_activated',
+      };
     } catch (err) {
       if (err instanceof TopicNotFoundException)
         throw new HttpException('topic_not_found', HttpStatus.NOT_FOUND);
