@@ -91,7 +91,7 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
           Sequelize.fn(
             'SUM',
             Sequelize.literal(
-              'TIMESTAMPDIFF(SECOND, startedAt, COALESCE(closedAt, CURRENT_TIMESTAMP))',
+              'TIMESTAMPDIFF(SECOND, startedAt, COALESCE(closedAt, CURRENT_TIMESTAMP)) / 4600',
             ),
           ),
           'total',
@@ -119,7 +119,7 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
         'topicId',
         [
           sequelize.literal(
-            `SUM(TIMESTAMPDIFF(SECOND, GREATEST(CURDATE(), startedAt), LEAST(DATE_ADD(CURDATE(), INTERVAL 1 DAY), IFNULL(closedAt, CURRENT_TIMESTAMP()))))`,
+            `SUM(TIMESTAMPDIFF(SECOND, GREATEST(CURDATE(), startedAt), LEAST(DATE_ADD(CURDATE(), INTERVAL 1 DAY), IFNULL(closedAt, CURRENT_TIMESTAMP())))) / 3600`,
           ),
           'total',
         ],
