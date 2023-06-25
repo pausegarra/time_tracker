@@ -14,4 +14,10 @@ export class ReportingController {
     const { id } = req.user as UserEntity;
     return this.reportingService.getTotalsOfUser(id);
   }
+
+  @Get('/today')
+  today(@Req() req: Request) {
+    const { id } = req.user as UserEntity;
+    return this.reportingService.getTodayOfUser(id);
+  }
 }

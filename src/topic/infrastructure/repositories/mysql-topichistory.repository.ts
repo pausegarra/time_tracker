@@ -7,6 +7,7 @@ import { TopicModel } from '../model/topic.model';
 import { TopicHistoryWithTopic } from 'src/topic/domain/topic-history-with-topic.entity';
 import { Sequelize } from 'sequelize-typescript';
 import { Op } from 'sequelize';
+import sequelize from 'sequelize';
 
 @Injectable()
 export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
@@ -109,6 +110,45 @@ export class MysqlTopicHistoryRepository implements TopicHistoryRepository {
       where: {
         closedAt: null,
       },
+    });
+  }
+
+  getReportOfTodayUser(userId: any): Promise<any> {
+    return this.model.findAll({
+      attributes: [
+        'topicId',
+        [
+          sequelize.literal(
+            `SUM(TIMESTAMPDIFF(SECOND, GREATEST(CURDATE(), startedAt), LEAST(DATE_ADD(CURDATE(), INTERVAL 1 DAY), IFNULL(closedAt, CURRENT_TIMESTAMP()))))`,
+          ),
+          'total',
+        ],
+      ],
+      where: {
+        userId,
+        startedAt: {
+          [sequelize.Op.lt]: sequelize.literal(
+            `DATE_ADD(CURDATE(), INTERVAL 1 DAY)`,
+          ),
+        },
+        [sequelize.Op.or]: [
+          {
+            closedAt: {
+              [sequelize.Op.gt]: sequelize.literal(`CURDATE()`),
+            },
+          },
+          {
+            closedAt: null,
+            startedAt: {
+              [sequelize.Op.lt]: sequelize.literal(
+                `DATE_ADD(CURDATE(), INTERVAL 1 DAY)`,
+              ),
+            },
+          },
+        ],
+      },
+      group: ['topicId'],
+      include: [TopicModel],
     });
   }
 }

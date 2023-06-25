@@ -27,5 +27,7 @@ export interface TopicHistoryRepository {
 
   getReportOfUserGroupedByTopic(userId): Promise<any>;
 
+  getReportOfTodayUser(userId): Promise<any>;
+
   getAllActiveTopics(): Promise<TopicHistoryEntity[]>;
 }

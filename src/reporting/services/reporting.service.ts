@@ -11,4 +11,8 @@ export class ReportingService {
   getTotalsOfUser(userId: number) {
     return this.topicHistoryRepository.getReportOfUserGroupedByTopic(userId);
   }
+
+  getTodayOfUser(userId: number) {
+    return this.topicHistoryRepository.getReportOfTodayUser(userId);
+  }
 }
