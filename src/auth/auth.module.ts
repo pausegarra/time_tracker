@@ -8,6 +8,7 @@ import { LoginService } from './application/login.service';
 import { RegisterService } from './application/register.service';
 import { AuthenticatedStrategy } from './infrastructure/strategies/jwt.strategy';
 import { WhoAmIController } from './infrastructure/controllers/whoami.ctrl';
+import { LogoutController } from './infrastructure/controllers/logout.ctrl';
 
 @Module({
   imports: [
@@ -18,7 +19,12 @@ import { WhoAmIController } from './infrastructure/controllers/whoami.ctrl';
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  controllers: [LoginController, RegisterController, WhoAmIController],
+  controllers: [
+    LoginController,
+    RegisterController,
+    WhoAmIController,
+    LogoutController,
+  ],
   providers: [LoginService, RegisterService, AuthenticatedStrategy],
 })
 export class AuthModule {}
