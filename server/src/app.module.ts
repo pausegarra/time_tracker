@@ -10,11 +10,17 @@ import { TopicModule } from './topic/topic.module';
 import { Sequelize } from 'sequelize-typescript';
 import { TopicHistoryModel } from './topic/infrastructure/model/topic-history.model';
 import { ReportingModule } from './reporting/reporting.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      exclude: ['/api/(.*)'],
     }),
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],
