@@ -2,7 +2,7 @@ FROM node:18.12-alpine3.17 AS client
 
 WORKDIR /app
 COPY ./client .
-ENV VITE_APP_API_URL=/api
+ENV VITE_API_URL=/api
 RUN yarn
 RUN yarn build
 
