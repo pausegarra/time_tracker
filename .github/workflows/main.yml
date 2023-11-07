@@ -22,3 +22,21 @@ jobs:
       with:
         push: true
         tags: psegarra/timetracker:latest
+  
+  deploy_via_ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            echo "Ejecutando script en el servidor remoto"
+            docker pull psegarra/timetracker:latest
+            docker stop timetracker
+            docker rm timetracker
+            docker run -d --name timetracker psegarra/timetracker:latest
+            docker image prune -f
