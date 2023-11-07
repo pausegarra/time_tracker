@@ -34,5 +34,15 @@ jobs:
           docker pull psegarra/timetracker:latest
           docker stop timetracker
           docker rm timetracker
-          docker run -d --name timetracker psegarra/timetracker:latest
+          docker run -dp 3030:5000 \
+            --name timetracker \
+            --restart=always \
+            --add-host=host.docker.internal:host-gateway \
+            -e NODE_ENV=production \
+            -e DB_HOST=host.docker.internal \
+            -e DB_PORT=3306 \
+            -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -e DB_DATABASE=${{ secrets.DB_DATABASE }} \
+            psegarra/timetracker:latest
           docker image prune -f
